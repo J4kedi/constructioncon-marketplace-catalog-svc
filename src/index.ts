@@ -10,7 +10,7 @@ const port = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use('/api/suppliers', supplierRoutes);
-app.use('/api/products', productRoutes);
+app.use('/products', productRoutes);
 
 const startServer = async () => {
   await connectDB();
