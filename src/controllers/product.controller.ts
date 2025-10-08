@@ -20,7 +20,29 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find().populate('supplier', 'name');
+    const { category, supplier, minPrice, maxPrice } = req.query;
+
+    const filters: any = {};
+
+    if (category) {
+      filters.category = { $regex: category, $options: 'i' };
+    }
+
+    if (supplier) {
+      filters.supplier = supplier;
+    }
+
+    if (minPrice || maxPrice) {
+      filters.unitPrice = {};
+      if (minPrice) {
+        filters.unitPrice.$gte = parseFloat(minPrice as string);
+      }
+      if (maxPrice) {
+        filters.unitPrice.$lte = parseFloat(maxPrice as string);
+      }
+    }
+
+    const products = await Product.find(filters).populate('supplier', 'name');
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching products', error });

@@ -12,6 +12,10 @@ app.use(express.json());
 app.use('/api/suppliers', supplierRoutes);
 app.use('/products', productRoutes);
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 const startServer = async () => {
   await connectDB();
   app.listen(port, () => {
