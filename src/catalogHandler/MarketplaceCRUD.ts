@@ -1,4 +1,4 @@
-const API_URL = "https://constructionconfunction-b2angsb5gfd4byew.brazilsouth-01.azurewebsites.net/api/CatalogoFunction";
+const API_URL = "https://constructionconfunction-b2angsb5gfd4byew.brazilsouth-01.azurewebsites.net/api/CatalogoFunction/{id?}";
 
 export async function listProducts() {
   const res = await fetch(API_URL, { method: "GET" });
